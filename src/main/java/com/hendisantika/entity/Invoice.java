@@ -1,0 +1,84 @@
+package com.hendisantika.entity;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Project : spring-boot-invoice-app-system
+ */
+@Entity
+@Table(name = "invoices")
+@Data
+@AllArgsConstructor
+public class Invoice implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotEmpty
+    private String description;
+
+    private String observation;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "create_at")
+    private Date createAt;
+
+    @XmlTransient
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    private Client client;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "invoice_id")
+    private List<ItemInvoice> items;
+
+    public Invoice() {
+        this.items = new ArrayList<>();
+    }
+
+    @PrePersist
+    public void prePersist() {
+        createAt = new Date();
+    }
+
+    public Double getTotal() {
+        Double total = 0.0;
+        int size = items.size();
+
+        for (int i = 0; i < size; i++) {
+            total += items.get(i).calculateImport();
+        }
+
+        return total;
+    }
+
+    public void addItemInvoice(ItemInvoice item) {
+        this.items.add(item);
+    }
+}
