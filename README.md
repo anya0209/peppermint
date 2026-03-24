@@ -1,37 +1,158 @@
-# spring-boot-invoice-app-system
-# Invoice Management System
+# 🌿 Peppermint
 
-Main objective of this project was managing Customers and their Invoices. Developed all type of CRUD operations, learning Spring Framework and Java in the process also how Hibernate works and the use of Thymeleaf and JQuery.
+A modern, self-hosted helpdesk and ticket management system designed to simplify how teams handle support, issues, and internal workflows.
 
-Technologies used: HTML, CSS, [Material Bootstrap](https://mdbootstrap.com/), JS, [Thymeleaf](https://www.thymeleaf.org/), [JQuery](https://jquery.com/), Java, [Springboot](https://spring.io/), [Hibernate](https://hibernate.org/) & SQL.
+Built with a focus on **simplicity, performance, and flexibility**, Peppermint offers a clean alternative to bulky tools like Zendesk or Jira—without the overhead.
 
-## Things todo list:
-1. Clone this repository: `git clone https://github.com/hendisantika/spring-boot-invoice-app-system.git`
-2. Navigate to the folder: `cd spring-boot-invoice-app-system`
-3. Set Database credentials in application.properties.
-4. Run the application: `mvn clean spring-boot:run`
-5. Open your favorite browser: http://localhost:8080
 
-## Features
-This app has an auth system based on cookies and sessions. If you don't sign in, you can only see the customer list, but nothing else. If you log in with a ROLE_USER role, you will be able to view the customers' details, and if you log in as ROLE_ADMIN, you will have full CRUD rights, so you will be able to create, update and delete customers and their invoices.
-* You can see some screenshots of the app in the /images folder.
+## ✨ Why Peppermint?
 
-## Language
-The app's main language is English, but it is partially translated into Indonesia. You can change the language via the dropdown located in the navbar. The exported documents (pdf, xlxs) are translated based on the language configuration of the app.
+Managing support shouldn’t feel like managing another problem.
 
-## How to access
+Peppermint helps teams:
 
-Heroku: https://invoice1demo1.herokuapp.com
+* Organize customer and internal requests efficiently
+* Keep track of conversations and history in one place
+* Collaborate with clarity and minimal friction
+* Deploy quickly with minimal setup
 
-* At first glance you have "no-user" role view.
-* You can create a User by Signing up (You'll have User-Role privileges)
-* Or access as admin to check the app out
-    * u: admin
-    * p: 12345
 
-* If Signing-up as User does not work try (User-Role privileges):
-    * u: naruto
-    * p: 12345
+## 🚀 Features
+
+* 🎫 **Ticket Management**
+
+  * Create, track, and resolve issues with ease
+  * Markdown support + file attachments
+
+* 🧾 **Client History**
+
+  * Maintain a complete log of interactions
+
+* 📒 **Notes & Internal Docs**
+
+  * Built-in markdown notebook with todo support
+
+* 📱 **Responsive UI**
+
+  * Works seamlessly across mobile, tablet, and desktop
+
+* ⚙️ **Easy Deployment**
+
+  * Docker-ready setup for quick self-hosting
+
+* 🧩 **Extensible Design**
+
+  * Built for customization and future expansion
+
+## 🛠️ Tech Stack
+
+* **Frontend:** React / Next.js
+* **Backend:** Node.js
+* **Database:** PostgreSQL
+* **Deployment:** Docker / PM2
+* **Language:** TypeScript
+
+
+## 🐳 Quick Start (Docker)
+
+```yaml
+version: "3.1"
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: peppermint
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: peppermint
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    image: pepperlabs/peppermint:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DB_USERNAME: peppermint
+      DB_PASSWORD: 1234
+      DB_HOST: db
+      SECRET: peppermint4life
+
+volumes:
+  pgdata:
+
+Then open:
+
+👉 `http://localhost:3000`
+
+**Default login:**
+
+```
+admin@admin.com
+1234
+
+## 📦 Installation Options
+
+* Docker (recommended)
+* One-line installer (Linux)
+* Manual setup for development
+
+
+## 📖 Documentation
+
+Detailed docs covering setup, usage, and development are coming soon.
+
+
+## 💡 Use Cases
+
+* Customer support systems
+* Internal IT/helpdesk tools
+* Startup ticket management
+* Personal project tracking
+
+
+## 🤝 Contributing
+
+Contributions are welcome!
+
+If you'd like to improve Peppermint:
+
+1. Fork the repository
+2. Create a feature branch
+3. Submit a pull request
+
+
+## 🧠 Philosophy
+
+Peppermint started as a simple project to explore full-stack development—and evolved into something more practical.
+
+The goal is simple:
+
+> Build a powerful helpdesk system that stays lightweight and accessible.
+
+## ⭐ Support
+
+If you find this project useful, consider giving it a star ⭐
+It helps the project grow and reach more developers.
+
+
+## 📜 License
+
+This project is open-source and available under the appropriate license.
+
+
+## 🔮 Roadmap 
+
+* Role-based access control improvements
+* Better analytics dashboard
+* Plugin ecosystem
+* API enhancements
+
+[1]: https://github.com/Peppermint-Lab/peppermint?utm_source=chatgpt.com "GitHub - Peppermint-Lab/peppermint: An open source issue management & help desk solution. A zendesk & jira alternative"
+
 
 ## Screen shot
 
